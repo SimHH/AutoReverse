@@ -44,13 +44,13 @@ def main():
             
             if tcp_match:
                 full_addr = tcp_match.group(0)
-                print("Public TCP PROTOCOL : /dev/tcp/" + "/".join(full_addr.lstrip("tcp://").split(":")))
-                print("Public TCP raw http : http://" + full_addr.lstrip("tcp://"))
+                print("Public TCP PROTOCOL : /dev/tcp/" + "/".join(full_addr.lstrip("tcp://").split(":"))) # RCE 명령 주소 /dev/tcp/~
+                print("Public TCP raw http : http://" + full_addr.lstrip("tcp://")) # tcp addr
                 print("ngrok Dashboard : 127.0.0.1:4040")
                 break
             elif http_match:
                 full_url = http_match.group(0)
-                print("Public HTTPS URL : " + full_url)
+                print("Public HTTPS URL : " + full_url) # https public web => http 방식 통신 시
                 print("ngrok Dashboard : 127.0.0.1:4040")
                 break
 
